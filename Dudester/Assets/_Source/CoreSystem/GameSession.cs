@@ -56,7 +56,7 @@ namespace CoreSystem
         public void StartSession()
         {
             enemies.ResetEnemies(); projectiles.ResetProjectiles(); effects.ResetEffects(); audioService.ResetAudio();
-            input.ResetInput(); player.ResetPlayer(); weapon.ResetWeapon();
+            player.ResetPlayer(); weapon.ResetWeapon();
             SurvivalTime = 0; Kills = 0;
             State = SessionState.Playing;
             audioService.Play(SoundCue.Button);
@@ -78,12 +78,16 @@ namespace CoreSystem
         {
             if (State != SessionState.Playing) return;
             State = SessionState.GameOver;
-            input.ResetInput(); weapon.ResetWeapon(); effects.SetPaused(true);
+            weapon.ResetWeapon(); effects.SetPaused(true);
             audioService.Play(SoundCue.PlayerDeath);
             StateChanged?.Invoke(State);
         }
         private void OnShot() => audioService.Play(SoundCue.Shot);
-        private void OnEnemySpawned(Vector3 position) => effects.Play(2, position + Vector3.up * .12f);
+        private void OnEnemySpawned(Vector3 position)
+        {
+            effects.Play(2, position + Vector3.up * .12f);
+            audioService.Play(SoundCue.EnemySpawn);
+        }
         private void OnEnemyKilled() { Kills++; StatsChanged?.Invoke(); }
         private void OnEnemyHit(Vector3 position, bool killed)
         {

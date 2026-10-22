@@ -1,13 +1,12 @@
 using System.Collections;
 using System.IO;
+using AudioSystem;
 using CombatSystem;
 using CoreSystem;
 using EnemySystem;
-using InputSystem;
 using NUnit.Framework;
 using UiSystem;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
@@ -87,17 +86,57 @@ namespace CoreSystem
         }
 
         [Test]
-        public void TouchJoystickNormalizesAndReleases()
+        public void CombatEventsPlayDistinctAssignedSounds()
         {
             session.StartSession();
-            VirtualJoystick stick = Object.FindFirstObjectByType<VirtualJoystick>();
-            Canvas.ForceUpdateCanvases();
-            Vector2 center = RectTransformUtility.WorldToScreenPoint(null, stick.transform.position);
-            var data = new PointerEventData(EventSystem.current) { pointerId = 0, position = center + Vector2.one * 300 };
-            stick.OnPointerDown(data);
-            Assert.That(stick.Value.magnitude, Is.EqualTo(1).Within(.001f));
-            Assert.That(stick.Value.x, Is.GreaterThan(0)); Assert.That(stick.Value.y, Is.GreaterThan(0));
-            stick.OnPointerUp(data); Assert.That(stick.Value, Is.EqualTo(Vector2.zero));
+            AudioService audio = Object.FindFirstObjectByType<AudioService>();
+            audio.ResetAudio();
+            EnemyController enemy = SpawnReady(new Vector3(0, 0, 4));
+            AssertCuePlaying(audio, "EnemySpawn");
+            audio.ResetAudio();
+            session.Weapon.Tick(session.Enemies, session.Projectiles, .1f);
+            AssertCuePlaying(audio, "Shot");
+            audio.ResetAudio();
+            enemy.TakeDamage(1, enemy.transform.position);
+            AssertCuePlaying(audio, "Hit");
+            audio.ResetAudio();
+            enemy.TakeDamage(100, enemy.transform.position);
+            AssertCuePlaying(audio, "EnemyDeath");
+        }
+
+        private static void AssertCuePlaying(AudioService service, string name)
+        {
+            bool playing = false;
+            foreach (AudioSource source in service.GetComponentsInChildren<AudioSource>())
+                playing |= source.isPlaying && source.clip != null && source.clip.name == name && source.volume > 0;
+            Assert.That(playing, Is.True, "Missing audible event: " + name);
+        }
+
+        [UnityTest]
+        public IEnumerator CombatSoundsReachAudioListener()
+        {
+            // Inspect the mixed output, not only AudioSource.isPlaying or asset existence.
+            AudioService service = Object.FindFirstObjectByType<AudioService>();
+            SoundCue[] cues = { SoundCue.Shot, SoundCue.Hit, SoundCue.EnemyDeath, SoundCue.EnemySpawn };
+            float[] samples = new float[1024];
+            var report = new System.Text.StringBuilder();
+            foreach (SoundCue cue in cues)
+            {
+                service.ResetAudio();
+                service.Play(cue);
+                float peak = 0;
+                float until = Time.realtimeSinceStartup + .35f;
+                while (Time.realtimeSinceStartup < until)
+                {
+                    yield return null;
+                    AudioListener.GetOutputData(samples, 0);
+                    for (int i = 0; i < samples.Length; i++) peak = Mathf.Max(peak, Mathf.Abs(samples[i]));
+                }
+                report.AppendLine(cue + ": mixed output peak = " + peak.ToString("F6", System.Globalization.CultureInfo.InvariantCulture));
+                Assert.That(peak, Is.GreaterThan(.001f), "Silent mixed output: " + cue);
+            }
+            Directory.CreateDirectory("Logs/QA");
+            File.WriteAllText("Logs/QA/Audio-output.txt", report.ToString());
         }
 
         [Test]

@@ -25,10 +25,10 @@ namespace CoreSystem
         private const string Root = "Assets/_Presentation/";
         private static Material floor, grid, wall, dark, mint, cream, orange, red, yellow, shadow, particle;
         private static Font font;
-        private static Sprite circle, white;
-        private static readonly Color Ink = new Color(.037f, .073f, .105f, .97f);
-        private static readonly Color Muted = new Color(.54f, .68f, .73f);
-        private static readonly Color Accent = new Color(.37f, .96f, .77f);
+        private static Sprite white;
+        private static readonly Color Ink = GamePalette.Black;
+        private static readonly Color Muted = Color.Lerp(GamePalette.Grey, GamePalette.Light, .65f);
+        private static readonly Color Accent = GamePalette.Red;
 
         [MenuItem("Dudester/Generate prototype assets and Main scene")]
         public static void Generate()
@@ -45,7 +45,6 @@ namespace CoreSystem
             { QualitySettings.SetQualityLevel(i, false); QualitySettings.renderPipeline = null; QualitySettings.shadows = ShadowQuality.Disable; QualitySettings.antiAliasing = 2; QualitySettings.vSyncCount = 0; }
             QualitySettings.SetQualityLevel(quality, false);
             CreateMaterials();
-            circle = CreateSprite("Circle", true);
             white = CreateSprite("White", false);
             font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             AudioClip[] clips = CreateAudio();
@@ -53,11 +52,11 @@ namespace CoreSystem
             Projectile projectilePrefab = BuildProjectile();
             AutoWeapon weaponPrefab = BuildWeapon();
             PlayerController playerPrefab = BuildPlayer(weaponPrefab);
-            ParticleSystem hit = BuildEffect("HitBurst", new Color(.95f, .07f, .12f), 9, 2.8f, .14f);
-            ParticleSystem death = BuildEffect("DeathBurst", new Color(1, .22f, .13f), 16, 3.8f, .21f);
-            ParticleSystem spawn = BuildEffect("SpawnBurst", new Color(1, .57f, .27f), 10, 1.2f, .13f);
+            ParticleSystem hit = BuildEffect("HitBurst", Accent, 9, 2.8f, .14f);
+            ParticleSystem death = BuildEffect("DeathBurst", Accent, 16, 3.8f, .21f);
+            ParticleSystem spawn = BuildEffect("SpawnBurst", GamePalette.Light, 10, 1.2f, .13f);
             RenderSettings.ambientMode = AmbientMode.Flat;
-            RenderSettings.ambientLight = new Color(.68f, .76f, .82f);
+            RenderSettings.ambientLight = new Color(.74f, .74f, .74f);
             RenderSettings.fog = false;
             RenderSettings.skybox = null;
             GameObject arena = BuildArena();
@@ -68,10 +67,10 @@ namespace CoreSystem
             cameraObject.transform.rotation = Quaternion.Euler(55, 0, 0);
             Camera camera = cameraObject.GetComponent<Camera>();
             camera.orthographic = true; camera.orthographicSize = 13.2f;
-            camera.clearFlags = CameraClearFlags.SolidColor; camera.backgroundColor = new Color(.025f, .046f, .063f);
+            camera.clearFlags = CameraClearFlags.SolidColor; camera.backgroundColor = GamePalette.Black;
             camera.nearClipPlane = .1f; camera.farClipPlane = 100; camera.allowHDR = false; camera.allowMSAA = true;
             Light light = new GameObject("Directional Light", typeof(Light)).GetComponent<Light>();
-            light.type = LightType.Directional; light.intensity = 1.05f; light.color = new Color(1, .93f, .81f);
+            light.type = LightType.Directional; light.intensity = 1.05f; light.color = Color.white;
             light.transform.rotation = Quaternion.Euler(48, -32, 0); light.shadows = LightShadows.None;
             PlayerController player = ((GameObject)PrefabUtility.InstantiatePrefab(playerPrefab.gameObject)).GetComponent<PlayerController>();
             player.name = "Player";
@@ -82,7 +81,7 @@ namespace CoreSystem
             AudioService audio = BuildAudioService(clips);
             GameSession session = new GameObject("GameSession", typeof(GameSession)).GetComponent<GameSession>();
             session.Configure(player, input, enemies, player.GetComponentInChildren<AutoWeapon>(), projectiles, effects, audio, cameraObject.GetComponent<ArenaCamera>());
-            BuildUi(session, input);
+            BuildUi(session);
             GameObject eventSystem = new GameObject("EventSystem", typeof(EventSystem), typeof(InputSystemUIInputModule));
             eventSystem.GetComponent<InputSystemUIInputModule>().AssignDefaultActions();
             EditorSceneManager.MarkSceneDirty(scene);
@@ -109,16 +108,17 @@ namespace CoreSystem
         }
         private static void CreateMaterials()
         {
-            floor = Material("Arena - petrol", new Color(.12f, .22f, .26f));
-            grid = Material("Arena - grid", new Color(.17f, .29f, .32f));
-            wall = Material("Arena - slate", new Color(.19f, .32f, .37f));
-            dark = Material("Graphite", new Color(.035f, .065f, .08f));
-            mint = Material("Signal - mint", Accent);
-            cream = Material("Hero - porcelain", new Color(.93f, .94f, .84f));
-            orange = Material("Enemy - coral", new Color(1, .34f, .18f));
-            red = Material("Enemy - visor", new Color(.42f, .045f, .055f));
-            yellow = Material("Shot - warm light", new Color(1, .87f, .39f), true);
-            shadow = Material("Contact shadows", new Color(.055f, .12f, .15f), true);
+            // Existing asset paths/GUIDs are retained for references in saved prefabs.
+            floor = Material("Arena - petrol", GamePalette.Grey);
+            grid = Material("Arena - grid", Color.Lerp(GamePalette.Grey, GamePalette.Light, .12f));
+            wall = Material("Arena - slate", GamePalette.Night);
+            dark = Material("Graphite", GamePalette.Black);
+            mint = Material("Signal - mint", GamePalette.Light);
+            cream = Material("Hero - porcelain", GamePalette.Light);
+            orange = Material("Enemy - coral", GamePalette.Red);
+            red = Material("Enemy - visor", GamePalette.Black);
+            yellow = Material("Shot - warm light", GamePalette.Light, true);
+            shadow = Material("Contact shadows", GamePalette.Black, true);
             particle = Material("Particles", Color.white, true);
             particle.shader = Shader.Find("Particles/Standard Unlit");
             particle.SetFloat("_Mode", 0);
@@ -291,8 +291,8 @@ namespace CoreSystem
         }
         private static AudioClip[] CreateAudio()
         {
-            string[] names = { "Shot", "Hit", "EnemyDeath", "PlayerHurt", "Button", "PlayerDeath" };
-            float[] durations = { .085f, .10f, .24f, .23f, .12f, .60f };
+            string[] names = { "Shot", "Hit", "EnemyDeath", "PlayerHurt", "Button", "PlayerDeath", "EnemySpawn" };
+            float[] durations = { .13f, .15f, .34f, .23f, .12f, .60f, .30f };
             AudioClip[] clips = new AudioClip[names.Length];
             for (int cue = 0; cue < names.Length; cue++)
             {
@@ -307,6 +307,7 @@ namespace CoreSystem
                     writer.Write(rate); writer.Write(rate * 2); writer.Write((short)2); writer.Write((short)16);
                     writer.Write(System.Text.Encoding.ASCII.GetBytes("data")); writer.Write(count * 2);
                     double phase = 0;
+                    float filteredNoise = 0;
                     for (int i = 0; i < count; i++)
                     {
                         float t = (float)i / rate, progress = (float)i / count;
@@ -314,17 +315,24 @@ namespace CoreSystem
                         float frequency, mix;
                         switch (cue)
                         {
-                            case 0: frequency = Mathf.Lerp(920, 180, progress); mix = .55f; break;
-                            case 1: frequency = Mathf.Lerp(180, 70, progress); mix = .8f; break;
-                            case 2: frequency = Mathf.Lerp(430, 65, progress); mix = .4f; break;
+                            case 0: frequency = 110 + 760 * Mathf.Exp(-progress * 16); mix = .55f; break;
+                            case 1: frequency = Mathf.Lerp(240, 65, progress); mix = .7f; break;
+                            case 2: frequency = 55 + 300 * Mathf.Pow(1 - progress, 2); mix = .45f; break;
                             case 3: frequency = Mathf.Lerp(140, 55, progress); mix = .25f; break;
                             case 4: frequency = progress < .45f ? 660 : 990; mix = 0; break;
-                            default: frequency = Mathf.Lerp(330, 45, progress); mix = .12f; break;
+                            case 5: frequency = Mathf.Lerp(330, 45, progress); mix = .12f; break;
+                            default: frequency = Mathf.Lerp(160, 720, progress * progress); mix = .12f; break;
                         }
                         phase += frequency * Math.PI * 2 / rate;
+                        filteredNoise = Mathf.Lerp(filteredNoise, noise, cue == 1 ? .85f : .3f);
                         float tone = (float)Math.Sin(phase);
-                        float envelope = Mathf.Min(1, t / .004f) * Mathf.Pow(1 - progress, cue == 4 ? 1.6f : 2.2f);
-                        float sample = (tone * (1 - mix) + noise * mix) * envelope * .7f;
+                        if (cue == 2) tone = .7f * tone + .3f * (float)Math.Sin(phase * .51);
+                        if (cue == 6) tone = .75f * tone + .25f * (float)Math.Sin(phase * 1.5);
+                        float envelope = cue == 6
+                            ? Mathf.Sin(progress * Mathf.PI) * (1 - progress * .35f)
+                            : Mathf.Min(1, t / .002f) * Mathf.Pow(1 - progress, cue == 4 ? 1.6f : 2.2f);
+                        float sample = (tone * (1 - mix) + filteredNoise * mix) * envelope * .82f;
+                        if (cue == 0) sample += noise * Mathf.Exp(-t * 500) * .25f;
                         writer.Write((short)(Mathf.Clamp(sample, -1, 1) * short.MaxValue));
                     }
                 }
@@ -373,12 +381,12 @@ namespace CoreSystem
         {
             RectTransform rect = Rect(name, parent, new Vector2(450, 82), position, new Vector2(.5f, .5f));
             Image image = Image(rect, Accent, true); Button button = rect.gameObject.AddComponent<Button>(); button.targetGraphic = image;
-            ColorBlock colors = button.colors; colors.normalColor = Color.white; colors.highlightedColor = new Color(.86f, 1, .94f);
-            colors.selectedColor = Color.white; colors.pressedColor = new Color(.52f, .82f, .72f); button.colors = colors;
-            Text label = Label("Label", rect, text, 29, Ink, new Vector2(430, 72), Vector2.zero); label.fontStyle = FontStyle.Bold;
+            ColorBlock colors = button.colors; colors.normalColor = Color.white; colors.highlightedColor = new Color(1.2f, 1.2f, 1.2f);
+            colors.selectedColor = Color.white; colors.pressedColor = new Color(.75f, .75f, .75f); button.colors = colors;
+            Text label = Label("Label", rect, text, 29, GamePalette.Light, new Vector2(430, 72), Vector2.zero); label.fontStyle = FontStyle.Bold;
             return button;
         }
-        private static void BuildUi(GameSession session, PlayerInputReader input)
+        private static void BuildUi(GameSession session)
         {
             GameObject root = new GameObject("Canvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             Canvas canvas = root.GetComponent<Canvas>(); canvas.renderMode = RenderMode.ScreenSpaceOverlay;
@@ -386,52 +394,33 @@ namespace CoreSystem
             scaler.referenceResolution = new Vector2(1080, 1080); scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight; scaler.matchWidthOrHeight = .5f;
             RectTransform safe = Stretch("Safe Area", root.transform); safe.gameObject.AddComponent<SafeArea>();
             RectTransform menu = Stretch("Main Menu", safe);
-            Image(Stretch("Dimmer", menu), new Color(.015f, .03f, .045f, .74f), true);
-            RectTransform menuCard = Rect("Menu Card", menu, new Vector2(580, 660), Vector2.zero, new Vector2(.5f, .5f)); Image(menuCard, Ink);
-            Image(Rect("Accent line", menuCard, new Vector2(580, 5), new Vector2(0, 328), new Vector2(.5f, .5f)), Accent);
-            Label("Eyebrow", menuCard, "S U R V I V A L   A R E N A", 18, Accent, new Vector2(510, 40), new Vector2(0, 265));
-            Text title = Label("Title", menuCard, "DUDESTER", 75, new Color(.96f, .97f, .88f), new Vector2(550, 112), new Vector2(0, 181)); title.fontStyle = FontStyle.Bold;
-            Label("Tagline", menuCard, "SMALL DUDE.  BIG TROUBLE.", 21, Muted, new Vector2(520, 45), new Vector2(0, 103));
-            Image(Rect("Divider", menuCard, new Vector2(450, 1), new Vector2(0, 50), new Vector2(.5f, .5f)), new Color(.23f, .35f, .39f));
-            Label("Premise", menuCard, "Keep moving. Your weapon does the rest.\nHow long can you hold the arena?", 22, Color.white, new Vector2(485, 82), new Vector2(0, -9));
-            Button play = Button("Play", menuCard, "PLAY   >", new Vector2(0, -116));
-            Label("Controls", menuCard, "W A S D  /  ARROW KEYS\nTouch & drag the joystick on mobile", 20, Muted, new Vector2(500, 75), new Vector2(0, -215));
-            Label("Footer", menuCard, "MOVE  /  DODGE  /  SURVIVE", 15, Accent, new Vector2(510, 35), new Vector2(0, -293));
+            Image(Stretch("Dimmer", menu), new Color(Ink.r, Ink.g, Ink.b, .8f), true);
+            RectTransform menuCard = Rect("Menu Card", menu, new Vector2(580, 340), Vector2.zero, new Vector2(.5f, .5f)); Image(menuCard, Ink);
+            Text title = Label("Title", menuCard, "DUDESTER", 75, GamePalette.Light, new Vector2(550, 112), new Vector2(0, 62)); title.fontStyle = FontStyle.Bold;
+            Button play = Button("Play", menuCard, "Play", new Vector2(0, -74));
 
             RectTransform hud = Stretch("HUD", safe);
             RectTransform top = Rect("Stats", hud, new Vector2(690, 106), new Vector2(0, -83), new Vector2(.5f, 1)); Image(top, new Color(Ink.r, Ink.g, Ink.b, .94f));
             Label("HP caption", top, "HEALTH", 16, Muted, new Vector2(200, 25), new Vector2(-215, 29));
-            Text hp = Label("HP", top, "100 / 100", 27, Color.white, new Vector2(210, 40), new Vector2(-215, -3)); hp.fontStyle = FontStyle.Bold;
-            RectTransform track = Rect("Health track", top, new Vector2(190, 7), new Vector2(-215, -33), new Vector2(.5f, .5f)); Image(track, new Color(.24f, .31f, .34f));
-            Image fill = Image(Stretch("Health fill", track), Accent); fill.sprite = white; fill.type = UnityEngine.UI.Image.Type.Filled; fill.fillMethod = UnityEngine.UI.Image.FillMethod.Horizontal; fill.fillOrigin = 0;
+            Text hp = Label("HP", top, "100 / 100", 27, GamePalette.Light, new Vector2(210, 40), new Vector2(-215, -3)); hp.fontStyle = FontStyle.Bold;
+            RectTransform track = Rect("Health track", top, new Vector2(190, 7), new Vector2(-215, -33), new Vector2(.5f, .5f)); Image(track, GamePalette.Grey);
+            Image fill = Image(Stretch("Health fill", track), GamePalette.Light); fill.sprite = white; fill.type = UnityEngine.UI.Image.Type.Filled; fill.fillMethod = UnityEngine.UI.Image.FillMethod.Horizontal; fill.fillOrigin = 0;
             Label("Time caption", top, "SURVIVAL TIME", 16, Muted, new Vector2(200, 25), new Vector2(20, 29));
-            Text time = Label("Time", top, "00:00", 38, Color.white, new Vector2(210, 50), new Vector2(20, -12)); time.fontStyle = FontStyle.Bold;
+            Text time = Label("Time", top, "00:00", 38, GamePalette.Light, new Vector2(210, 50), new Vector2(20, -12)); time.fontStyle = FontStyle.Bold;
             Label("Kills caption", top, "KILLS", 16, Muted, new Vector2(140, 25), new Vector2(244, 29));
-            Text kills = Label("Kills", top, "00", 38, Accent, new Vector2(140, 50), new Vector2(244, -12)); kills.fontStyle = FontStyle.Bold;
-            RectTransform instruction = Rect("Instruction", hud, new Vector2(530, 40), new Vector2(0, 35), new Vector2(.5f, 0));
-            Text hint = instruction.gameObject.AddComponent<Text>(); hint.font = font; hint.fontSize = 17; hint.text = "KEEP MOVING  /  AUTO FIRE ENABLED"; hint.color = Muted; hint.alignment = TextAnchor.MiddleCenter; hint.raycastTarget = false;
+            Text kills = Label("Kills", top, "00", 38, GamePalette.Light, new Vector2(140, 50), new Vector2(244, -12)); kills.fontStyle = FontStyle.Bold;
 
-            RectTransform touch = Stretch("Touch Controls", safe);
-            RectTransform joystick = Rect("Joystick", touch, new Vector2(154, 154), new Vector2(115, 132), Vector2.zero);
-            Image baseImage = Image(joystick, new Color(.32f, .62f, .63f, .22f), true); baseImage.sprite = circle;
-            RectTransform inner = Rect("Inset", joystick, new Vector2(134, 134), Vector2.zero, new Vector2(.5f, .5f)); Image(inner, new Color(.02f, .07f, .09f, .55f)).sprite = circle;
-            RectTransform handle = Rect("Handle", joystick, new Vector2(61, 61), Vector2.zero, new Vector2(.5f, .5f)); Image(handle, new Color(.47f, .95f, .81f, .85f)).sprite = circle;
-            VirtualJoystick stick = joystick.gameObject.AddComponent<VirtualJoystick>(); stick.Configure(handle); input.Configure(stick);
-            Label("Move label", joystick, "MOVE", 14, Muted, new Vector2(140, 26), new Vector2(0, -98));
-
-            RectTransform end = Stretch("Game Over", safe); Image(Stretch("Dimmer", end), new Color(.015f, .03f, .045f, .8f), true);
-            RectTransform endCard = Rect("Results Card", end, new Vector2(580, 640), Vector2.zero, new Vector2(.5f, .5f)); Image(endCard, Ink);
-            Image(Rect("Accent line", endCard, new Vector2(580, 5), new Vector2(0, 318), new Vector2(.5f, .5f)), new Color(1, .38f, .26f));
-            Label("Eyebrow", endCard, "THE ARENA GOT YOU", 18, new Color(1, .5f, .36f), new Vector2(500, 40), new Vector2(0, 252));
-            Text over = Label("Title", endCard, "GAME OVER", 64, Color.white, new Vector2(550, 95), new Vector2(0, 172)); over.fontStyle = FontStyle.Bold;
+            RectTransform end = Stretch("Game Over", safe); Image(Stretch("Dimmer", end), new Color(Ink.r, Ink.g, Ink.b, .8f), true);
+            RectTransform endCard = Rect("Results Card", end, new Vector2(580, 500), Vector2.zero, new Vector2(.5f, .5f)); Image(endCard, Ink);
+            Image(Rect("Accent line", endCard, new Vector2(580, 5), new Vector2(0, 248), new Vector2(.5f, .5f)), Accent);
+            Text over = Label("Title", endCard, "GAME OVER", 64, GamePalette.Light, new Vector2(550, 95), new Vector2(0, 160)); over.fontStyle = FontStyle.Bold;
             Label("Time caption", endCard, "SURVIVAL TIME", 18, Muted, new Vector2(220, 32), new Vector2(-127, 65));
             Label("Kills caption", endCard, "ENEMIES DOWN", 18, Muted, new Vector2(220, 32), new Vector2(127, 65));
-            Text finalTime = Label("Final Time", endCard, "00:00", 51, Color.white, new Vector2(240, 85), new Vector2(-127, -2)); finalTime.fontStyle = FontStyle.Bold;
-            Text finalKills = Label("Final Kills", endCard, "00", 51, Accent, new Vector2(240, 85), new Vector2(127, -2)); finalKills.fontStyle = FontStyle.Bold;
-            Button restart = Button("Restart", endCard, "RESTART   >", new Vector2(0, -125));
-            Label("Hint", endCard, "A little more room. A little more time.\nKeep your distance and try again.", 21, Muted, new Vector2(510, 76), new Vector2(0, -233));
-            GameUi ui = root.AddComponent<GameUi>(); ui.Configure(session, menu.gameObject, hud.gameObject, end.gameObject, touch.gameObject, time, kills, hp, finalTime, finalKills, fill, play, restart);
-            hud.gameObject.SetActive(false); touch.gameObject.SetActive(false); end.gameObject.SetActive(false);
+            Text finalTime = Label("Final Time", endCard, "00:00", 51, GamePalette.Light, new Vector2(240, 85), new Vector2(-127, -2)); finalTime.fontStyle = FontStyle.Bold;
+            Text finalKills = Label("Final Kills", endCard, "00", 51, GamePalette.Light, new Vector2(240, 85), new Vector2(127, -2)); finalKills.fontStyle = FontStyle.Bold;
+            Button restart = Button("Restart", endCard, "Restart", new Vector2(0, -145));
+            GameUi ui = root.AddComponent<GameUi>(); ui.Configure(session, menu.gameObject, hud.gameObject, end.gameObject, time, kills, hp, finalTime, finalKills, fill, play, restart);
+            hud.gameObject.SetActive(false); end.gameObject.SetActive(false);
         }
 
         [MenuItem("Dudester/Validate saved scene")]

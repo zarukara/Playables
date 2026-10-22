@@ -2,27 +2,28 @@ using UnityEngine;
 
 namespace AudioSystem
 {
-    public enum SoundCue { Shot, Hit, EnemyDeath, PlayerHurt, Button, PlayerDeath }
+    public enum SoundCue { Shot, Hit, EnemyDeath, PlayerHurt, Button, PlayerDeath, EnemySpawn }
     public sealed class AudioService : MonoBehaviour
     {
-        [SerializeField, Range(0, 1)] private float masterVolume = .65f;
+        [SerializeField, Range(0, 1)] private float masterVolume = .8f;
         [SerializeField] private AudioClip[] clips;
         [SerializeField] private AudioSource[] voices;
-        private readonly float[] lastPlayed = new float[6];
-        private static readonly float[] Gains = { .21f, .22f, .3f, .4f, .38f, .42f };
+        private static readonly float[] Gains = { .38f, .40f, .47f, .43f, .38f, .48f, .30f };
+        private static readonly float[] Cooldowns = { .045f, .045f, .06f, .10f, .045f, .15f, .16f };
+        private readonly float[] lastPlayed = new float[Gains.Length];
         public float MasterVolume { get => masterVolume; set => masterVolume = Mathf.Clamp01(value); }
         public void Configure(AudioClip[] samples, AudioSource[] channels) { clips = samples; voices = channels; }
         private void Awake() { for (int i = 0; i < lastPlayed.Length; i++) lastPlayed[i] = -10; }
         public void Play(SoundCue cue)
         {
             int index = (int)cue;
-            if (clips == null || index >= clips.Length || clips[index] == null) return;
-            if (Time.unscaledTime - lastPlayed[index] < .045f) return;
+            if (clips == null || index < 0 || index >= clips.Length || index >= Gains.Length || clips[index] == null) return;
+            if (Time.unscaledTime - lastPlayed[index] < Cooldowns[index]) return;
             AudioSource voice = null;
             for (int i = 0; i < voices.Length; i++) if (!voices[i].isPlaying) { voice = voices[i]; break; }
             if (voice == null)
             {
-                if (cue == SoundCue.Shot || cue == SoundCue.Hit) return;
+                if (cue == SoundCue.Shot || cue == SoundCue.Hit || cue == SoundCue.EnemySpawn) return;
                 voice = voices[voices.Length - 1];
                 voice.Stop();
             }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using CoreSystem;
 
 namespace CombatSystem
 {
@@ -15,7 +16,7 @@ namespace CombatSystem
         {
             remaining = .12f;
             if (block == null) block = new MaterialPropertyBlock();
-            block.SetColor(ColorId, new Color(1f, .12f, .16f));
+            block.SetColor(ColorId, Color.Lerp(GamePalette.Red, GamePalette.Light, .4f));
             foreach (Renderer surface in surfaces) surface.SetPropertyBlock(block);
         }
         public void Tick(float dt)

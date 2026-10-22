@@ -7,7 +7,7 @@ namespace UiSystem
     public sealed class GameUi : MonoBehaviour
     {
         [SerializeField] private GameSession session;
-        [SerializeField] private GameObject menuPanel, hudPanel, gameOverPanel, touchControls;
+        [SerializeField] private GameObject menuPanel, hudPanel, gameOverPanel;
         [SerializeField] private Text timeText, killsText, healthText, finalTimeText, finalKillsText;
         [SerializeField] private Image healthFill;
         [SerializeField] private Button playButton, restartButton;
@@ -16,10 +16,10 @@ namespace UiSystem
         public Button RestartButton => restartButton;
         public GameObject MenuPanel => menuPanel;
         public GameObject GameOverPanel => gameOverPanel;
-        public void Configure(GameSession game, GameObject menu, GameObject hud, GameObject end, GameObject touch,
+        public void Configure(GameSession game, GameObject menu, GameObject hud, GameObject end,
             Text time, Text kills, Text hp, Text finalTime, Text finalKills, Image fill, Button play, Button restart)
         {
-            session = game; menuPanel = menu; hudPanel = hud; gameOverPanel = end; touchControls = touch;
+            session = game; menuPanel = menu; hudPanel = hud; gameOverPanel = end;
             timeText = time; killsText = kills; healthText = hp; finalTimeText = finalTime; finalKillsText = finalKills;
             healthFill = fill; playButton = play; restartButton = restart;
         }
@@ -52,7 +52,6 @@ namespace UiSystem
         {
             menuPanel.SetActive(state == SessionState.Menu);
             hudPanel.SetActive(state == SessionState.Playing);
-            touchControls.SetActive(state == SessionState.Playing);
             gameOverPanel.SetActive(state == SessionState.GameOver);
             displayedSecond = -1;
             if (state == SessionState.GameOver)
@@ -70,7 +69,7 @@ namespace UiSystem
         {
             healthText.text = Mathf.CeilToInt(current) + " / " + Mathf.CeilToInt(maximum);
             healthFill.fillAmount = maximum > 0 ? current / maximum : 0;
-            healthFill.color = current / maximum > .3f ? new Color(.35f, .94f, .77f) : new Color(1, .3f, .31f);
+            healthFill.color = current / maximum > .3f ? GamePalette.Light : GamePalette.Red;
         }
         public static string FormatTime(int seconds) => (seconds / 60).ToString("00") + ":" + (seconds % 60).ToString("00");
     }

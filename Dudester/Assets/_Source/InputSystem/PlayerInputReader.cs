@@ -1,15 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.EventSystems;
 
 namespace InputSystem
 {
     public sealed class PlayerInputReader : MonoBehaviour
     {
-        [SerializeField] private VirtualJoystick joystick;
         public Vector2 ReadMovement()
         {
-            Vector2 value = joystick != null ? joystick.Value : Vector2.zero;
+            Vector2 value = Vector2.zero;
             Keyboard keys = Keyboard.current;
             if (keys != null)
             {
@@ -21,8 +19,6 @@ namespace InputSystem
             if (Gamepad.current != null) value += Gamepad.current.leftStick.ReadValue();
             return Vector2.ClampMagnitude(value, 1);
         }
-        public void ResetInput() { if (joystick != null) joystick.ResetInput(); }
-        public void Configure(VirtualJoystick value) => joystick = value;
     }
 
 }
