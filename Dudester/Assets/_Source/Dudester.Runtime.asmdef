@@ -1,0 +1,5 @@
+{
+  "name": "Dudester.Runtime",
+  "references": ["Unity.InputSystem", "Unity.ugui"],
+  "autoReferenced": true
+}

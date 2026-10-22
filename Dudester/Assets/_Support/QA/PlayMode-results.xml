@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="13" result="Passed" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-22 12:46:41Z" end-time="2026-10-22 12:46:59Z" duration="17,5923722">
+  <test-suite type="TestSuite" id="1020" name="Dudester" fullname="Dudester" runstate="Runnable" testcasecount="13" result="Passed" start-time="2026-10-22 12:46:41Z" end-time="2026-10-22 12:46:59Z" duration="17.592372" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1015" name="Dudester.PlayMode.Tests.dll" fullname="D:/Git/Playables/Dudester/Library/ScriptAssemblies/Dudester.PlayMode.Tests.dll" runstate="Runnable" testcasecount="13" result="Passed" start-time="2026-10-22 12:46:41Z" end-time="2026-10-22 12:46:59Z" duration="17.585667" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="46844" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1016" name="CoreSystem" fullname="CoreSystem" runstate="Runnable" testcasecount="13" result="Passed" start-time="2026-10-22 12:46:41Z" end-time="2026-10-22 12:46:59Z" duration="17.584739" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestFixture" id="1001" name="PrototypePlayModeTests" fullname="CoreSystem.PrototypePlayModeTests" classname="CoreSystem.PrototypePlayModeTests" runstate="Runnable" testcasecount="13" result="Passed" start-time="2026-10-22 12:46:41Z" end-time="2026-10-22 12:46:59Z" duration="17.583116" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-case id="1012" name="AutonomousCombatProducesKillsAndAudio" fullname="CoreSystem.PrototypePlayModeTests.AutonomousCombatProducesKillsAndAudio" methodname="AutonomousCombatProducesKillsAndAudio" classname="CoreSystem.PrototypePlayModeTests" runstate="Runnable" seed="1303565238" result="Passed" start-time="2026-10-22 12:46:41Z" end-time="2026-10-22 12:46:42Z" duration="0.993550" asserts="0">
+            <properties>
+              <property name="_JOINTYPE" value="UnityCombinatorial" />
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+          </test-case>
+          <test-case id="1014" name="CaptureVisualEvidence" fullname="CoreSystem.PrototypePlayModeTests.CaptureVisualEvidence" methodname="CaptureVisualEvidence" classname="CoreSystem.PrototypePlayModeTests" runstate="Runnable" seed="1335401988" result="Passed" start-time="2026-10-22 12:46:42Z" end-time="2026-10-22 12:46:43Z" duration="0.970766" asserts="0">
+            <properties>
+              <property name="_JOINTYPE" value="UnityCombinatorial" />
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+          </test-case>
+          <test-case id="1010" name="DeathStopsSimulationAndRepeatedRestartDoesNotDuplicate" fullname="CoreSystem.PrototypePlayModeTests.DeathStopsSimulationAndRepeatedRestartDoesNotDuplicate" methodname="DeathStopsSimulationAndRepeatedRestartDoesNotDuplicate" classname="CoreSystem.PrototypePlayModeTests" runstate="Runnable" seed="1601364049" result="Passed" start-time="2026-10-22 12:46:43Z" end-time="2026-10-22 12:46:44Z" duration="0.549295" asserts="0">
+            <properties>
+              <property name="_JOINTYPE" value="UnityCombinatorial" />
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+          </test-case>
+          <test-case id="1004" name="DiagonalSpeedAndArenaBoundsAreCorrect" fullname="CoreSystem.PrototypePlayModeTests.DiagonalSpeedAndArenaBoundsAreCorrect" methodname="DiagonalSpeedAndArenaBoundsAreCorrect" classname="CoreSystem.PrototypePlayModeTests" runstate="Runnable" seed="1466212965" result="Passed" start-time="2026-10-22 12:46:44Z" end-time="2026-10-22 12:46:44Z" duration="0.313164" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+          </test-case>
+          <test-case id="1009" name="EnemyContactDamageHasCooldownAndDeathReturnsToPool" fullname="CoreSystem.PrototypePlayModeTests.EnemyContactDamageHasCooldownAndDeathReturnsToPool" methodname="EnemyContactDamageHasCooldownAndDeathReturnsToPool" classname="CoreSystem.PrototypePlayModeTests" runstate="Runnable" seed="1107472762" result="Passed" start-time="2026-10-22 12:46:44Z" end-time="2026-10-22 12:46:45Z" duration="0.321703" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+          </test-case>
+          <test-case id="1011" name="EnemyPoolIsBoundedAndReusable" fullname="CoreSystem.PrototypePlayModeTests.EnemyPoolIsBoundedAndReusable" methodname="EnemyPoolIsBoundedAndReusable" classname="CoreSystem.PrototypePlayModeTests" runstate="Runnable" seed="1216952089" result="Passed" start-time="2026-10-22 12:46:45Z" end-time="2026-10-22 12:46:45Z" duration="0.302085" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+          </test-case>
+          <test-case id="1003" name="KeyboardMovesPlayerThroughInputSystem" fullname="CoreSystem.PrototypePlayModeTests.KeyboardMovesPlayerThroughInputSystem" methodname="KeyboardMovesPlayerThroughInputSystem" classname="CoreSystem.PrototypePlayModeTests" runstate="Runnable" seed="2054667200" result="Passed" start-time="2026-10-22 12:46:45Z" end-time="2026-10-22 12:46:46Z" duration="0.617284" asserts="0">
+            <properties>
+              <property name="_JOINTYPE" value="UnityCombinatorial" />
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+          </test-case>
+          <test-case id="1002" name="MenuAndPlayButtonStartTheRealLoop" fullname="CoreSystem.PrototypePlayModeTests.MenuAndPlayButtonStartTheRealLoop" methodname="MenuAndPlayButtonStartTheRealLoop" classname="CoreSystem.PrototypePlayModeTests" runstate="Runnable" seed="802023805" result="Passed" start-time="2026-10-22 12:46:46Z" end-time="2026-10-22 12:46:47Z" duration="1.244810" asserts="0">
+            <properties>
+              <property name="_JOINTYPE" value="UnityCombinatorial" />
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+          </test-case>
+          <test-case id="1008" name="ProjectileChoosesFirstIntersectionAndExpires" fullname="CoreSystem.PrototypePlayModeTests.ProjectileChoosesFirstIntersectionAndExpires" methodname="ProjectileChoosesFirstIntersectionAndExpires" classname="CoreSystem.PrototypePlayModeTests" runstate="Runnable" seed="731759362" result="Passed" start-time="2026-10-22 12:46:47Z" end-time="2026-10-22 12:46:47Z" duration="0.317682" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+          </test-case>
+          <test-case id="1013" name="SustainedEnemyPressureEndsInGameOver" fullname="CoreSystem.PrototypePlayModeTests.SustainedEnemyPressureEndsInGameOver" methodname="SustainedEnemyPressureEndsInGameOver" classname="CoreSystem.PrototypePlayModeTests" runstate="Runnable" seed="2073086801" result="Passed" start-time="2026-10-22 12:46:47Z" end-time="2026-10-22 12:46:58Z" duration="11.038231" asserts="0">
+            <properties>
+              <property name="_JOINTYPE" value="UnityCombinatorial" />
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+          </test-case>
+          <test-case id="1007" name="SweptProjectileHitsOnceAndRestoresSharedMaterial" fullname="CoreSystem.PrototypePlayModeTests.SweptProjectileHitsOnceAndRestoresSharedMaterial" methodname="SweptProjectileHitsOnceAndRestoresSharedMaterial" classname="CoreSystem.PrototypePlayModeTests" runstate="Runnable" seed="594725025" result="Passed" start-time="2026-10-22 12:46:58Z" end-time="2026-10-22 12:46:58Z" duration="0.300725" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+          </test-case>
+          <test-case id="1006" name="TargetLockIgnoresCloserEnemyAndReleasesOutsideRange" fullname="CoreSystem.PrototypePlayModeTests.TargetLockIgnoresCloserEnemyAndReleasesOutsideRange" methodname="TargetLockIgnoresCloserEnemyAndReleasesOutsideRange" classname="CoreSystem.PrototypePlayModeTests" runstate="Runnable" seed="13771946" result="Passed" start-time="2026-10-22 12:46:58Z" end-time="2026-10-22 12:46:59Z" duration="0.301848" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+          </test-case>
+          <test-case id="1005" name="TouchJoystickNormalizesAndReleases" fullname="CoreSystem.PrototypePlayModeTests.TouchJoystickNormalizesAndReleases" methodname="TouchJoystickNormalizesAndReleases" classname="CoreSystem.PrototypePlayModeTests" runstate="Runnable" seed="202386665" result="Passed" start-time="2026-10-22 12:46:59Z" end-time="2026-10-22 12:46:59Z" duration="0.299505" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+            <output><![CDATA[Saving results to: C:/Users/Eugen/AppData/LocalLow/DefaultCompany/Dudester\TestResults.xml
+]]></output>
+          </test-case>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

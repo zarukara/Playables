@@ -1,0 +1,6 @@
+{
+  "name": "Dudester.PlayMode.Tests",
+  "references": ["Dudester.Runtime", "Unity.InputSystem", "Unity.ugui"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"]
+}
