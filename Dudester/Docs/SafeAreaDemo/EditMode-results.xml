@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="6" result="Passed" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-16 14:04:06Z" end-time="2026-11-16 14:04:06Z" duration="0,0338805">
+  <test-suite type="TestSuite" id="1000" name="Dudester" fullname="Dudester" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-16 14:04:06Z" end-time="2026-11-16 14:04:06Z" duration="0.033881" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1009" name="Dudester.SafeArea.Tests.dll" fullname="D:/Git/Playables/Dudester/Library/ScriptAssemblies/Dudester.SafeArea.Tests.dll" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-16 14:04:06Z" end-time="2026-11-16 14:04:06Z" duration="0.028036" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="46588" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1010" name="UiSystem" fullname="UiSystem" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-16 14:04:06Z" end-time="2026-11-16 14:04:06Z" duration="0.027771" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestFixture" id="1002" name="SafeAreaFitterTests" fullname="UiSystem.SafeAreaFitterTests" classname="UiSystem.SafeAreaFitterTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-16 14:04:06Z" end-time="2026-11-16 14:04:06Z" duration="0.027146" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-case id="1005" name="ChangedResolutionWithSameSafeRectangleIsApplied" fullname="UiSystem.SafeAreaFitterTests.ChangedResolutionWithSameSafeRectangleIsApplied" methodname="ChangedResolutionWithSameSafeRectangleIsApplied" classname="UiSystem.SafeAreaFitterTests" runstate="Runnable" seed="1339142727" result="Passed" start-time="2026-11-16 14:04:06Z" end-time="2026-11-16 14:04:06Z" duration="0.013404" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+            <output><![CDATA[[SafeAreaFitter] Screen.safeArea=(x:0.00, y:0.00, width:800.00, height:600.00); resolution=800x600; anchorMin=(0.00, 0.00), anchorMax=(1.00, 1.00)
+[SafeAreaFitter] Screen.safeArea=(x:0.00, y:0.00, width:800.00, height:600.00); resolution=1600x1200; anchorMin=(0.00, 0.00), anchorMax=(0.50, 0.50)
+]]></output>
+          </test-case>
+          <test-case id="1004" name="ChangedSafeAreaAtSameResolutionIsApplied" fullname="UiSystem.SafeAreaFitterTests.ChangedSafeAreaAtSameResolutionIsApplied" methodname="ChangedSafeAreaAtSameResolutionIsApplied" classname="UiSystem.SafeAreaFitterTests" runstate="Runnable" seed="226832209" result="Passed" start-time="2026-11-16 14:04:06Z" end-time="2026-11-16 14:04:06Z" duration="0.001827" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+            <output><![CDATA[[SafeAreaFitter] Screen.safeArea=(x:0.00, y:0.00, width:1000.00, height:2000.00); resolution=1000x2000; anchorMin=(0.00, 0.00), anchorMax=(1.00, 1.00)
+[SafeAreaFitter] Screen.safeArea=(x:0.00, y:80.00, width:1000.00, height:1800.00); resolution=1000x2000; anchorMin=(0.00, 0.04), anchorMax=(1.00, 0.94)
+]]></output>
+          </test-case>
+          <test-case id="1003" name="InsetsAreNormalizedAndOffsetsAreCleared" fullname="UiSystem.SafeAreaFitterTests.InsetsAreNormalizedAndOffsetsAreCleared" methodname="InsetsAreNormalizedAndOffsetsAreCleared" classname="UiSystem.SafeAreaFitterTests" runstate="Runnable" seed="1541128753" result="Passed" start-time="2026-11-16 14:04:06Z" end-time="2026-11-16 14:04:06Z" duration="0.000909" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+            <output><![CDATA[[SafeAreaFitter] Screen.safeArea=(x:50.00, y:100.00, width:900.00, height:1700.00); resolution=1000x2000; anchorMin=(0.05, 0.05), anchorMax=(0.95, 0.90)
+]]></output>
+          </test-case>
+          <test-case id="1008" name="LandscapeInsetsUseRotatedScreenDimensions" fullname="UiSystem.SafeAreaFitterTests.LandscapeInsetsUseRotatedScreenDimensions" methodname="LandscapeInsetsUseRotatedScreenDimensions" classname="UiSystem.SafeAreaFitterTests" runstate="Runnable" seed="908549518" result="Passed" start-time="2026-11-16 14:04:06Z" end-time="2026-11-16 14:04:06Z" duration="0.001593" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+            <output><![CDATA[[SafeAreaFitter] Screen.safeArea=(x:0.00, y:80.00, width:1080.00, height:1780.00); resolution=1080x1920; anchorMin=(0.00, 0.04), anchorMax=(1.00, 0.97)
+[SafeAreaFitter] Screen.safeArea=(x:80.00, y:30.00, width:1780.00, height:1050.00); resolution=1920x1080; anchorMin=(0.04, 0.03), anchorMax=(0.97, 1.00)
+]]></output>
+          </test-case>
+          <test-case id="1006" name="UnchangedDataDoesNotRewritePanelOrLog" fullname="UiSystem.SafeAreaFitterTests.UnchangedDataDoesNotRewritePanelOrLog" methodname="UnchangedDataDoesNotRewritePanelOrLog" classname="UiSystem.SafeAreaFitterTests" runstate="Runnable" seed="913515838" result="Passed" start-time="2026-11-16 14:04:06Z" end-time="2026-11-16 14:04:06Z" duration="0.000816" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+            <output><![CDATA[[SafeAreaFitter] Screen.safeArea=(x:0.00, y:0.00, width:1000.00, height:2000.00); resolution=1000x2000; anchorMin=(0.00, 0.00), anchorMax=(1.00, 1.00)
+]]></output>
+          </test-case>
+          <test-case id="1007" name="ZeroSizeIsSkippedWithoutPoisoningNextFrame" fullname="UiSystem.SafeAreaFitterTests.ZeroSizeIsSkippedWithoutPoisoningNextFrame" methodname="ZeroSizeIsSkippedWithoutPoisoningNextFrame" classname="UiSystem.SafeAreaFitterTests" runstate="Runnable" seed="995448231" result="Passed" start-time="2026-11-16 14:04:06Z" end-time="2026-11-16 14:04:06Z" duration="0.000741" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+            <output><![CDATA[[SafeAreaFitter] Screen.safeArea=(x:0.00, y:100.00, width:1000.00, height:1800.00); resolution=1000x2000; anchorMin=(0.00, 0.05), anchorMax=(1.00, 0.95)
+Saving results to: C:/Users/Eugen/AppData/LocalLow/DefaultCompany/Dudester\TestResults.xml
+]]></output>
+          </test-case>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

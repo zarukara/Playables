@@ -1,0 +1,9 @@
+playing=True; scene=Assets/_Presentation/Scenes/SafeAreaDemo.unity
+frame=2643; paused=False; nativeScreen=1440x3040
+screen=1440x3040; safeArea=(x:0.00, y:0.00, width:1440.00, height:2898.00)
+anchors=(0.000000, 0.000000)..(1.000000, 0.953289); offsets=(0.00, 0.00)/(0.00, 0.00)
+TopBar pixel bounds=(40.68, 2677.15, 0.00)..(1399.32, 2857.32, 0.00)
+LeftAction pixel bounds=(40.68, 40.68, 0.00)..(447.51, 209.23, 0.00)
+RightAction pixel bounds=(992.49, 40.68, 0.00)..(1399.32, 209.23, 0.00)
+background=(0.00, 0.00)..(1.00, 1.00); offsets=(0.00, 0.00)/(0.00, 0.00)
+window=(x:100.00, y:100.00, width:1300.00, height:900.00); current=Samsung Galaxy S10+

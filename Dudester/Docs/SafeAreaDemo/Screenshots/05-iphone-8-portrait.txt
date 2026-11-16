@@ -1,0 +1,9 @@
+playing=True; scene=Assets/_Presentation/Scenes/SafeAreaDemo.unity
+frame=4495; paused=False; nativeScreen=750x1334
+screen=750x1334; safeArea=(x:0.00, y:0.00, width:750.00, height:1334.00)
+anchors=(0.000000, 0.000000)..(1.000000, 1.000000); offsets=(0.00, 0.00)/(0.00, 0.00)
+TopBar pixel bounds=(19.45, 1228.42, 0.00)..(730.55, 1314.55, 0.00)
+LeftAction pixel bounds=(19.45, 19.45, 0.00)..(213.94, 100.03, 0.00)
+RightAction pixel bounds=(536.06, 19.45, 0.00)..(730.55, 100.03, 0.00)
+background=(0.00, 0.00)..(1.00, 1.00); offsets=(0.00, 0.00)/(0.00, 0.00)
+window=(x:100.00, y:100.00, width:1300.00, height:900.00); current=Apple iPhone 8

@@ -1,0 +1,9 @@
+playing=True; scene=Assets/_Presentation/Scenes/SafeAreaDemo.unity
+frame=2163; paused=False; nativeScreen=1080x2340
+screen=1080x2340; safeArea=(x:0.00, y:0.00, width:1080.00, height:2204.00)
+anchors=(0.000000, 0.000000)..(1.000000, 0.941880); offsets=(0.00, 0.00)/(0.00, 0.00)
+TopBar pixel bounds=(30.91, 2036.20, 0.00)..(1049.09, 2173.09, 0.00)
+LeftAction pixel bounds=(30.91, 30.91, 0.00)..(340.02, 158.97, 0.00)
+RightAction pixel bounds=(739.98, 30.91, 0.00)..(1049.09, 158.97, 0.00)
+background=(0.00, 0.00)..(1.00, 1.00); offsets=(0.00, 0.00)/(0.00, 0.00)
+window=(x:100.00, y:100.00, width:1300.00, height:900.00); current=Google Pixel 5

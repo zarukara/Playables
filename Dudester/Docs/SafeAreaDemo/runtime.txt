@@ -1,0 +1,7 @@
+2026-11-16T14:04:14.7880078Z [SafeAreaFitter] Screen.safeArea=(x:0.00, y:102.00, width:1125.00, height:2202.00); resolution=1125x2436; anchorMin=(0.00, 0.04), anchorMax=(1.00, 0.95)
+2026-11-16T14:04:15.4227455Z [SafeAreaFitter] Screen.safeArea=(x:0.00, y:0.00, width:537.00, height:302.00); resolution=537x302; anchorMin=(0.00, 0.00), anchorMax=(1.00, 1.00)
+2026-11-16T14:04:30.4571021Z [SafeAreaFitter] Screen.safeArea=(x:0.00, y:102.00, width:1125.00, height:2202.00); resolution=1125x2436; anchorMin=(0.00, 0.04), anchorMax=(1.00, 0.95)
+2026-11-16T14:04:39.2858609Z [SafeAreaFitter] Screen.safeArea=(x:132.00, y:63.00, width:2172.00, height:1062.00); resolution=2436x1125; anchorMin=(0.05, 0.06), anchorMax=(0.95, 1.00)
+2026-11-16T14:04:50.1512588Z [SafeAreaFitter] Screen.safeArea=(x:0.00, y:0.00, width:1080.00, height:2204.00); resolution=1080x2340; anchorMin=(0.00, 0.00), anchorMax=(1.00, 0.94)
+2026-11-16T14:04:58.3742715Z [SafeAreaFitter] Screen.safeArea=(x:0.00, y:0.00, width:1440.00, height:2898.00); resolution=1440x3040; anchorMin=(0.00, 0.00), anchorMax=(1.00, 0.95)
+2026-11-16T14:05:09.2093658Z [SafeAreaFitter] Screen.safeArea=(x:0.00, y:0.00, width:750.00, height:1334.00); resolution=750x1334; anchorMin=(0.00, 0.00), anchorMax=(1.00, 1.00)
